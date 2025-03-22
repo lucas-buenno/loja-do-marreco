@@ -1,8 +1,11 @@
 package com.quack.loja_do_marreco.services;
 
+import com.quack.loja_do_marreco.controllers.dto.ApiResponse;
 import com.quack.loja_do_marreco.controllers.dto.DuckRegisterDTO;
+import com.quack.loja_do_marreco.controllers.dto.PaginationResponse;
 import com.quack.loja_do_marreco.entities.DuckEntity;
 import com.quack.loja_do_marreco.entities.enums.DuckAvailability;
+import com.quack.loja_do_marreco.entities.enums.DuckSpecie;
 import com.quack.loja_do_marreco.exception.AdvancedAgeException;
 import com.quack.loja_do_marreco.exception.MaxWeightAllowedException;
 import com.quack.loja_do_marreco.repositories.DuckRepository;
@@ -10,6 +13,10 @@ import com.quack.loja_do_marreco.repositories.DuckPriceTableRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -86,4 +93,41 @@ public class DuckService {
 
         return duckValuesByPriceTable.getPrice();
     }
+
+    public Page<DuckEntity> getRegisteredDucks(Integer pageNumber,
+                                               Integer pageSize,
+                                               String sortBy,
+                                               String sortOrder) {
+
+
+        var direction = Sort.Direction.DESC;
+
+        if (!sortOrder.equalsIgnoreCase("desc")) {
+            direction = Sort.Direction.ASC;
+        }
+
+        var pageRequest = PageRequest.of(pageNumber, pageSize, direction, sortBy);
+
+        return duckRepository.findAll(pageRequest);
+
+    }
+
+    public Page<DuckEntity> getRegisteredDucksBySpecie(DuckSpecie duckSpecie,
+                                                       Integer pageNumber,
+                                                       Integer pageSize,
+                                                       String sortBy,
+                                                       String sortOrder) {
+
+        var direction = Sort.Direction.DESC;
+
+        if (!sortOrder.equalsIgnoreCase("desc")) {
+            direction = Sort.Direction.ASC;
+        }
+
+        var pageRequest = PageRequest.of(pageNumber, pageSize, direction, sortBy);
+        return duckRepository.findByDuckSpecieLike(duckSpecie , pageRequest);
+
+
+    }
+
 }
