@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -31,8 +32,8 @@ public class DuckEntity {
     @Column(name = "duck_specie")
     private DuckSpecie duckSpecie;
 
-    @Column(name = "age_in_months")
-    private Integer ageInMonths;
+    @Column(name = "estimated_Date_of_birth")
+    private LocalDate estimatedDateOfBirth;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "duck_gender")
@@ -54,4 +55,7 @@ public class DuckEntity {
 
     @Column(name = "sale_date")
     private LocalDateTime saleDate;
+
+    @Column(name = "additional_details", length = 255)
+    private String additionalDetails;
 }

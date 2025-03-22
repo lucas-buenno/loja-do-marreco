@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 @Entity
-@Table(name = "price_table")
+@Table(name = "duck_price_table")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class PriceTable {
+public class DuckPriceTable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
