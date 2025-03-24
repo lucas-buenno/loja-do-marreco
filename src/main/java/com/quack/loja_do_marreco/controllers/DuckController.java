@@ -4,10 +4,13 @@ import com.quack.loja_do_marreco.controllers.dto.ApiResponse;
 import com.quack.loja_do_marreco.controllers.dto.DuckRegisterDTO;
 import com.quack.loja_do_marreco.controllers.dto.PaginationResponse;
 import com.quack.loja_do_marreco.entities.DuckEntity;
+import com.quack.loja_do_marreco.entities.enums.DuckAvailability;
 import com.quack.loja_do_marreco.entities.enums.DuckSpecie;
 import com.quack.loja_do_marreco.services.DuckService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.EnableMBeanExport;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,6 +53,21 @@ public class DuckController {
             @PathVariable("duckSpecie") DuckSpecie duckSpecie) {
 
         var response = duckService.getRegisteredDucksBySpecie(duckSpecie, pageNumber, pageSize, sortBy, sortOrder);
+
+        return ResponseEntity.ok(new ApiResponse<>(response.getContent(),
+                new PaginationResponse(pageNumber, pageSize, response.getTotalElements(), response.getTotalPages())));
+    }
+
+    @GetMapping(path = "/availability/{availability}")
+    public ResponseEntity<ApiResponse<DuckEntity>> getByAvailability(
+            @PathVariable("availability")DuckAvailability availability,
+            @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+            @RequestParam(name = "sortBy", defaultValue = "entryDate") String sortBy,
+            @RequestParam(name = "sortOrder", defaultValue = "DESC") String sortOrder) {
+
+
+        var response = duckService.getByAvailability(availability, pageNumber, pageSize, sortBy, sortOrder);
 
         return ResponseEntity.ok(new ApiResponse<>(response.getContent(),
                 new PaginationResponse(pageNumber, pageSize, response.getTotalElements(), response.getTotalPages())));

@@ -1,6 +1,7 @@
 package com.quack.loja_do_marreco.repositories;
 
 import com.quack.loja_do_marreco.entities.DuckEntity;
+import com.quack.loja_do_marreco.entities.enums.DuckAvailability;
 import com.quack.loja_do_marreco.entities.enums.DuckSpecie;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,5 +13,6 @@ import java.util.UUID;
 @Repository
 public interface DuckRepository extends JpaRepository<DuckEntity, UUID> {
 
-    Page<DuckEntity> findByDuckSpecieLike(DuckSpecie duckSpecie, PageRequest pageRequest);
+    Page<DuckEntity> findByDuckSpecie(DuckSpecie duckSpecie, PageRequest pageRequest);
+    Page<DuckEntity> findByAvailability(DuckAvailability availability, PageRequest pageRequest);
 }
