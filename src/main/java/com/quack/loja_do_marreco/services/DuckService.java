@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -32,6 +33,7 @@ public class DuckService {
 
     private final DuckRepository duckRepository;
     private final DuckPriceTableRepository duckPriceTableRepository;
+    private final ImportDucksService importDucksService;
 
 
     @Transactional
@@ -138,5 +140,34 @@ public class DuckService {
 
         var pageRequest = PageRequest.of(pageNumber, pageSize, direction, sortBy);
         return duckRepository.findByAvailability(availability, pageRequest);
+    }
+
+    @Transactional
+    public void readDucksImportCsv(String path) {
+
+
+        try {
+
+            var importsCsv = importDucksService.readDucksImportCsv(path);
+
+            importsCsv.forEach(duck -> {
+
+                var dto = DuckRegisterDTO.builder()
+                        .duckSpecie(duck.getDuckSpecie())
+                        .ageInMonths(duck.getAgeInMonths())
+                        .duckGender(duck.getDuckGender())
+                        .weightInKg(duck.getWeightInKg())
+                        .additionalDetails(duck.getAdditionalDetails())
+                        .build();
+
+                registerDuck(dto);
+
+            });
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 }
