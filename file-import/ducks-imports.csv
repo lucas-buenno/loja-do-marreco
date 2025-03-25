@@ -1,0 +1,23 @@
+duckSpecie,ageInMonths,duckGender,weightInKg,additionalDetails
+PEKIN,12,MALE,4.2,Pato saudável e ativo
+MALLARD,24,FEMALE,3.1,Nascido em cativeiro
+REAL,36,MALE,5.0,Nenhuma observação adicional
+ROUEN,48,FEMALE,4.5,Gosta de nadar em lagos
+CORREDOR_INDIANO,60,MALE,2.3,Prefere caminhar ao invés de nadar
+PEKIN,72,FEMALE,3.8,Pato criado solto
+MALLARD,6,MALE,1.2,Filhote em crescimento
+REAL,18,FEMALE,2.7,Boa postura de ovos
+ROUEN,30,MALE,4.1,Alimentação balanceada
+CORREDOR_INDIANO,90,FEMALE,2.0,Ágil e esguio
+PEKIN,15,MALE,3.9,Resistente ao frio
+MALLARD,27,FEMALE,2.5,Vive próximo a lagos
+REAL,42,MALE,4.8,Pato líder do grupo
+ROUEN,55,FEMALE,3.2,Adaptação rápida a novos ambientes
+CORREDOR_INDIANO,12,MALE,1.8,Filhote brincalhão
+PEKIN,9,FEMALE,2.6,Necessita suplementação alimentar
+MALLARD,33,MALE,3.4,Gosta de interagir com outros patos
+REAL,21,FEMALE,2.9,Origem desconhecida
+ROUEN,78,MALE,4.3,Alimentação rica em proteínas
+CORREDOR_INDIANO,25,FEMALE,1.9,Corre grandes distâncias diariamente
+PEKIN,50,MALE,4.0,Pato robusto e bem desenvolvido
+MALLARD,11,FEMALE,2.3,Choca ovos
