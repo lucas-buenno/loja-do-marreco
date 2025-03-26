@@ -13,7 +13,7 @@ public class RegistrationNumberGenerator {
 
     public String generateRegistration() {
         RandomStringGenerator generator = new RandomStringGenerator.Builder()
-                .withinRange('A', 'Z')
+                .withinRange('0', '9')
                 .filteredBy(Character::isLetterOrDigit)
                 .usingRandom(new SecureRandom()::nextInt)
                 .get();
