@@ -24,9 +24,10 @@ public class SellersEntity {
     @Column(name = "seller_name")
     private String sellerName;
 
+    @Column(name = "seller_cpf", unique = true)
+    private String sellerCpf;
+
     @Column(name = "seller_registration", unique = true)
     private String sellerRegistration;
 
-    @Column(name = "seller_cpf", unique = true)
-    private String sellerCpf;
 }
