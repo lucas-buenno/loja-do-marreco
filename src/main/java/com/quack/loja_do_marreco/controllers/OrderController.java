@@ -1,15 +1,14 @@
 package com.quack.loja_do_marreco.controllers;
 
 import com.quack.loja_do_marreco.controllers.dto.CreateOrderDto;
+import com.quack.loja_do_marreco.controllers.dto.GetOrderDto;
 import com.quack.loja_do_marreco.services.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,5 +23,12 @@ public class OrderController {
         var response = orderService.createOrder(dto);
 
         return ResponseEntity.created(URI.create("/" + response.getId())).build();
+    }
+
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<GetOrderDto> getOrderById(@PathVariable("id") UUID id) {
+        var response = orderService.getOrderById(id);
+        return ResponseEntity.ok(response);
     }
 }
