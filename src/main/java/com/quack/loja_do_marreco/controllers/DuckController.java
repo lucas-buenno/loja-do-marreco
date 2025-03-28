@@ -9,14 +9,17 @@ import com.quack.loja_do_marreco.entities.enums.DuckAvailability;
 import com.quack.loja_do_marreco.entities.enums.DuckSpecie;
 import com.quack.loja_do_marreco.services.DuckService;
 import com.quack.loja_do_marreco.services.ImportDucksService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.context.annotation.EnableMBeanExport;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
@@ -29,6 +32,8 @@ public class DuckController {
     private final ImportDucksService importDucksService;
 
 
+
+    @Operation(summary = "Cadastra um novo pato e salva no banco de dados", method = "POST")
     @PostMapping(path = "/register")
     public ResponseEntity<Void> registerDuck(@RequestBody @Valid DuckRegisterDTO duckRegisterDTO){
         var duck = duckService.registerDuck(duckRegisterDTO);
@@ -36,6 +41,7 @@ public class DuckController {
     }
 
 
+    @Operation(summary = "Busca todos os patos e retorna paginado", method = "GET")
     @GetMapping
     public ResponseEntity<ApiResponse<DuckEntity>> getRegisteredDucks(
             @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
@@ -49,6 +55,8 @@ public class DuckController {
                 new PaginationResponse(pageNumber, pageSize, response.getTotalElements(), response.getTotalPages())));
     }
 
+
+    @Operation(summary = "Buscar patos com base na espécie e retorna paginado", method = "GET")
     @GetMapping(path = "/{duckSpecie}")
     public ResponseEntity<ApiResponse<DuckEntity>> getRegisteredDucksBySpecie(
             @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
@@ -63,6 +71,8 @@ public class DuckController {
                 new PaginationResponse(pageNumber, pageSize, response.getTotalElements(), response.getTotalPages())));
     }
 
+
+    @Operation(summary = "Busca todos os patos com base no status de disponibilidade", method = "GET")
     @GetMapping(path = "/availability/{availability}")
     public ResponseEntity<ApiResponse<DuckEntity>> getByAvailability(
             @PathVariable("availability")DuckAvailability availability,
@@ -73,11 +83,12 @@ public class DuckController {
 
 
         var response = duckService.getByAvailability(availability, pageNumber, pageSize, sortBy, sortOrder);
-
         return ResponseEntity.ok(new ApiResponse<>(response.getContent(),
                 new PaginationResponse(pageNumber, pageSize, response.getTotalElements(), response.getTotalPages())));
     }
 
+
+    @Operation(summary = "Faz cadastro em lotes de patos com base em url de csv", method = "POST")
     @PostMapping(path = "/register/import")
     public ResponseEntity<Void> importDucksByCsv(@RequestBody ImportDucksDto dto) {
 
@@ -87,4 +98,15 @@ public class DuckController {
 
         return ResponseEntity.accepted().build();
     }
+
+
+    @Operation(summary = "Mata um pato que está com status de disponível", method = "PUT")
+    @PutMapping(path = "/{uuid}")
+    public ResponseEntity<Void> killADuck(@PathVariable("uuid") UUID uuid) {
+
+        var response = duckService.killADuck(uuid);
+
+        return response ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+    }
+
 }
