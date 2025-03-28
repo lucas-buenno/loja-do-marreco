@@ -5,6 +5,7 @@ import com.quack.loja_do_marreco.controllers.dto.PaginationResponse;
 import com.quack.loja_do_marreco.controllers.dto.RegisterSellersDTO;
 import com.quack.loja_do_marreco.entities.SellersEntity;
 import com.quack.loja_do_marreco.services.SellersService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
@@ -21,6 +22,8 @@ public class SellersController {
 
     private final SellersService sellersService;
 
+
+    @Operation(summary = "Realiza o cadastro do vendedor no banco de dados", method = "POST")
     @PostMapping(path = "/register")
     public ResponseEntity<Void> registerSellers(@Valid @RequestBody RegisterSellersDTO dto) {
 
@@ -29,6 +32,9 @@ public class SellersController {
         return ResponseEntity.created(URI.create("/" + response.getId())).build();
     }
 
+
+
+    @Operation(summary = "Busca todos os vendedores e retorna paginado", method = "GET")
     @GetMapping
     public ResponseEntity<ApiResponse<SellersEntity>> getSellers(
             @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
@@ -43,6 +49,12 @@ public class SellersController {
                 new PaginationResponse(pageNumber, pageSize, response.getTotalElements(), response.getTotalPages())));
     }
 
+
+
+
+
+
+    @Operation(summary = "Busca o vendedor utilizando Cpf OU sellerRegistration", method = "GET")
     @GetMapping(path = "/{cpfOrSellerRegistration}")
     public ResponseEntity<SellersEntity> getSellerByCpfOrSellerRegistration(
             @PathVariable("cpfOrSellerRegistration") String cpfOrSellerRegistration) {

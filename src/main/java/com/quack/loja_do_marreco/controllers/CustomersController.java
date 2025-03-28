@@ -3,6 +3,7 @@ package com.quack.loja_do_marreco.controllers;
 import com.quack.loja_do_marreco.controllers.dto.RegisterCustomerDto;
 import com.quack.loja_do_marreco.entities.CustomersEntity;
 import com.quack.loja_do_marreco.services.CustomersService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ public class CustomersController {
 
     private final CustomersService customersService;
 
+    @Operation(summary = "Cadastra um novo cliente e salva no banco de dados", method = "POST")
     @PostMapping(path = "/register")
     public ResponseEntity<Void> registerCustomer(@Valid @RequestBody RegisterCustomerDto dto) {
 
@@ -25,6 +27,7 @@ public class CustomersController {
         return ResponseEntity.created(URI.create("/" + response.getId())).build();
     }
 
+    @Operation(summary = "Busca um cliente por Cpf", method = "GET")
     @GetMapping(path = "/{uuid}")
     public ResponseEntity<CustomersEntity> getByCpf(@PathVariable UUID id) {
 

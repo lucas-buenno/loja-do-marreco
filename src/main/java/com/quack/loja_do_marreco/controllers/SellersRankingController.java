@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/sellers-ranking")
+
 public class SellersRankingController {
 
 
@@ -31,7 +29,6 @@ public class SellersRankingController {
             @RequestParam(name = "sortOrder", defaultValue = "DESC") String sortOrder,
             @RequestParam(name = "sortBy", defaultValue = "totalValueSold") String sortBy
     ) {
-
         var response = rankingSellersService.getSellersRanking(pageNumber, pageSize, sortOrder, sortBy);
 
         return ResponseEntity.ok(new ApiResponse<>(response.getContent(),
