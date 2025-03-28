@@ -54,7 +54,7 @@ public class DuckEntity {
     private LocalDateTime entryDate;
 
     @Column(name = "sale_date")
-    private LocalDateTime saleDate;
+    private LocalDate saleDate;
 
     @Column(name = "additional_details", length = 255)
     private String additionalDetails;
