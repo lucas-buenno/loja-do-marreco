@@ -21,7 +21,6 @@ public class RegistrationNumberGenerator {
         var register = generator.generate(5);
 
         return "M-" + register;
-
     }
 
 }

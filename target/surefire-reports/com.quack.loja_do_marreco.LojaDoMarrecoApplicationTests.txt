@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.quack.loja_do_marreco.LojaDoMarrecoApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.88 s -- in com.quack.loja_do_marreco.LojaDoMarrecoApplicationTests

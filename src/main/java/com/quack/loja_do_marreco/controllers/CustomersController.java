@@ -4,6 +4,7 @@ import com.quack.loja_do_marreco.controllers.dto.RegisterCustomerDto;
 import com.quack.loja_do_marreco.entities.CustomersEntity;
 import com.quack.loja_do_marreco.services.CustomersService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping(path = "/customers")
 @RequiredArgsConstructor
+@Tag(name = "Customer", description = "Cadastra um cliente e busca por cpf")
 public class CustomersController {
 
     private final CustomersService customersService;

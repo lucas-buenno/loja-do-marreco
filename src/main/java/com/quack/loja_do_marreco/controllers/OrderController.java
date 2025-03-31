@@ -4,6 +4,7 @@ import com.quack.loja_do_marreco.controllers.dto.CreateOrderDto;
 import com.quack.loja_do_marreco.controllers.dto.GetOrderDto;
 import com.quack.loja_do_marreco.services.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/orders")
+@Tag(name = "Order", description = "Cria um pedido e busca ele por uuid")
 public class OrderController {
 
     private final OrderService orderService;

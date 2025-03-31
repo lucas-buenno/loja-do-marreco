@@ -10,6 +10,7 @@ import com.quack.loja_do_marreco.entities.enums.DuckSpecie;
 import com.quack.loja_do_marreco.services.DuckService;
 import com.quack.loja_do_marreco.services.ImportDucksService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
@@ -25,6 +26,7 @@ import java.util.concurrent.CompletableFuture;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/quacks")
+@Tag(name = "Duck", description = "Cadastra, altera e busca um pato")
 public class DuckController {
 
 

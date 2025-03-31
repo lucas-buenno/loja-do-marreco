@@ -6,6 +6,7 @@ import com.quack.loja_do_marreco.controllers.dto.RegisterSellersDTO;
 import com.quack.loja_do_marreco.entities.SellersEntity;
 import com.quack.loja_do_marreco.services.SellersService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
@@ -17,6 +18,7 @@ import java.net.URI;
 @RestController
 @RequestMapping(path = "/sellers")
 @RequiredArgsConstructor
+@Tag(name = "Seller", description = "Cadastra e busca um vendedor")
 public class SellersController {
 
 
