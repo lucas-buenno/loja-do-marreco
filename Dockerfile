@@ -26,8 +26,8 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
 # Cria um usuário não-root
-RUN useradd -m cruzeiro
-USER cruzeiro
+RUN useradd -m marreco
+USER 1234
 
 # Expõe a porta
 EXPOSE 8080

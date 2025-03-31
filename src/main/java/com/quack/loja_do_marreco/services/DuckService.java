@@ -5,6 +5,8 @@ import com.quack.loja_do_marreco.entities.DuckEntity;
 import com.quack.loja_do_marreco.entities.enums.DuckAvailability;
 import com.quack.loja_do_marreco.entities.enums.DuckSpecie;
 import com.quack.loja_do_marreco.exception.AdvancedAgeException;
+import com.quack.loja_do_marreco.exception.DuckDoNotExistsException;
+import com.quack.loja_do_marreco.exception.DuckIsNotAvailable;
 import com.quack.loja_do_marreco.exception.MaxWeightAllowedException;
 import com.quack.loja_do_marreco.repositories.DuckRepository;
 import com.quack.loja_do_marreco.repositories.DuckPriceTableRepository;
@@ -18,6 +20,8 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
+import java.util.UUID;
 
 import static java.util.Objects.isNull;
 
@@ -169,5 +173,21 @@ public class DuckService {
         }
 
 
+    }
+
+    public boolean killADuck(UUID uuid) {
+
+        var duck = duckRepository.findById(uuid)
+                .orElseThrow(() -> new DuckDoNotExistsException("Pato não encontrado"));
+
+        if (!duck.getAvailability().equals(DuckAvailability.AVAILABLE)) {
+            throw new DuckIsNotAvailable("O pato não pode ser morto");
+        }
+
+        duck.setAvailability(DuckAvailability.DEAD);
+
+        duckRepository.save(duck);
+
+        return true;
     }
 }

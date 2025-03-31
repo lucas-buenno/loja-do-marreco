@@ -14,5 +14,9 @@ import java.util.UUID;
 public interface DuckRepository extends JpaRepository<DuckEntity, UUID> {
 
     Page<DuckEntity> findByDuckSpecie(DuckSpecie duckSpecie, PageRequest pageRequest);
+
     Page<DuckEntity> findByAvailability(DuckAvailability availability, PageRequest pageRequest);
+
+
+
 }

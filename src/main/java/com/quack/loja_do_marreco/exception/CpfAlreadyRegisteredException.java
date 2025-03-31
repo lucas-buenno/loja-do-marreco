@@ -15,7 +15,7 @@ public class CpfAlreadyRegisteredException extends QuackException {
     @Override
     public ProblemDetail toProblemDetail() {
 
-        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.UNPROCESSABLE_ENTITY);
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.CONFLICT);
         problemDetail.setTitle("Não é possível registrar o vendedor");
         problemDetail.setDetail(detail);
 
